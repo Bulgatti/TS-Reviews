@@ -3,6 +3,7 @@ const { Reviews } = require('../db');
 module.exports = {
   getReviews: (product, options) => {
     try {
+      if (!options) return Promise.resolve(Reviews.find({ product_id: product }).lean());
       return Promise.resolve(Reviews.find({ product_id: product, reported: false })
         .skip((options.page - 1) * 5)
         .limit(options.count)
