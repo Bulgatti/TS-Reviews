@@ -1,4 +1,4 @@
-const { Reviews } = require('../models');
+const { Reviews, Photos } = require('../models');
 
 module.exports = {
   getReviews: (request, response) => {
@@ -13,14 +13,35 @@ module.exports = {
       .then(reviews => {
         /* eslint-disable no-param-reassign */
         /* eslint-disable no-underscore-dangle */
-        reviews.forEach(review => {
+        Promise.all(reviews.map(review => {
           review.review_id = review.id;
           review.date = new Date(review.date);
           review.response = review.response === 'null' ? null : review.response;
-          delete review._id;
+          review.reviewer_name = review.name;
           delete review.id;
-        });
-        response.status(200).json(reviews);
+          delete review.reported;
+          delete review.name;
+          delete review.email;
+          delete review._id;
+
+          return Promise.resolve(Photos.getPhotos({ review_id: review.review_id })
+            .then(photos => {
+              photos.forEach(photo => {
+                delete photo.review_id;
+                delete photo._id;
+              });
+              review.photos = photos;
+            }));
+        }))
+          .then(() => {
+            const body = {
+              product,
+              page: options.page,
+              count: options.count,
+              results: reviews,
+            };
+            response.status(200).json(body);
+          });
       })
       .catch(error => response.status(500).send(error));
   },
