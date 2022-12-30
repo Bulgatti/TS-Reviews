@@ -15,5 +15,5 @@ mongoose.connect(DB_URL)
 
 module.exports.Reviews = require('./Reviews');
 module.exports.Photos = require('./Photos');
-module.exports.ProductCharacteristics = require('./ProductCharacteristics');
-module.exports.Characteristics = require('./Characteristics');
+module.exports.ProductChars = require('./ProductChars');
+module.exports.Chars = require('./Chars');
