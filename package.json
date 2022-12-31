@@ -5,7 +5,7 @@
   "main": "./service/index.js",
   "scripts": {
     "start": "node ./service/index.js",
-    "start:dev": "nodemon --watch ./service"
+    "start:dev": "npx nodemon --watch ./service"
   },
   "keywords": [],
   "author": "Jordan Searcy-Hosea",
