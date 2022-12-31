@@ -8,7 +8,7 @@ const reviewSchema = mongoose.Schema({
   summary: { type: String, required: true },
   body: { type: String, required: true },
   date: { type: Number, default: () => (new Date()).getTime() },
-  recommend: { type: Boolean, required: true },
+  recommend: { type: Boolean, required: true, enum: [true, false] },
   helpfulness: { type: Number, default: 0 },
   reported: { type: Boolean, default: false, enum: [true, false] },
   name: { type: String, required: true },
