@@ -7,4 +7,4 @@ const productCharSchema = mongoose.Schema({
   name: { type: String, required: true },
 });
 
-module.exports = mongoose.model('productChar', productCharSchema, 'productChars');
+module.exports = mongoose.model('productchar', productCharSchema, 'productchars');
