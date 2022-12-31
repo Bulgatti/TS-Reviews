@@ -4,7 +4,7 @@ const { generateID } = require('./util');
 const reviewSchema = mongoose.Schema({
   id: { type: Number, default: generateID },
   product_id: { type: Number, required: true, index: true },
-  rating: { type: Number, required: true },
+  rating: { type: Number, required: true, enum: [1, 2, 3, 4, 5] },
   summary: { type: String, required: true },
   body: { type: String, required: true },
   date: { type: Number, default: () => (new Date()).getTime() },
