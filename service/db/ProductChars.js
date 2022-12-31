@@ -3,7 +3,7 @@ const { generateID } = require('./util');
 
 const productCharSchema = mongoose.Schema({
   id: { type: Number, default: generateID },
-  product_id: { type: Number, required: true },
+  product_id: { type: Number, required: true, index: true },
   name: { type: String, required: true },
 });
 

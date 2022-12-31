@@ -3,8 +3,8 @@ const { generateID } = require('./util');
 
 const charSchema = mongoose.Schema({
   id: { type: Number, default: generateID },
-  characteristic_id: { type: Number, required: true },
-  review_id: { type: Number, required: true, index: true },
+  characteristic_id: { type: Number, required: true, index: true },
+  review_id: { type: Number, required: true },
   value: { type: Number, required: true },
 });
 
