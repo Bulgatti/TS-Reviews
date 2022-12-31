@@ -22,7 +22,7 @@ module.exports = {
   },
   updateReview: (review, update) => {
     try {
-      return Promise.resolve(Reviews.updateOne(review, update));
+      return Promise.resolve(Reviews.updateOne({ id: review }, update));
     } catch (error) {
       return Promise.reject(error);
     }
