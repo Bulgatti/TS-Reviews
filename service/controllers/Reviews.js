@@ -53,7 +53,7 @@ module.exports = {
   },
   updateReview: (request, response) => {
     const property = request.url.split('/').at(-1);
-    const review = { id: +request.params.review_id };
+    const review = +request.params.review_id;
     const update = {};
     if (property === 'helpful') {
       update.$inc = { helpfulness: 1 };
