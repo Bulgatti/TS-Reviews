@@ -1,4 +1,5 @@
-const { Reviews, Photos } = require('../models');
+// eslint-disable-next-line object-curly-newline
+const { Reviews, Photos, ProductChars, Chars } = require('../models');
 
 module.exports = {
   getReviews: (request, response) => {
@@ -41,6 +42,44 @@ module.exports = {
               results: reviews,
             };
             response.status(200).json(body);
+          });
+      })
+      .catch(error => response.status(500).send(error));
+  },
+  getMetadata: (request, response) => {
+    const product = +request.query.product_id;
+    Reviews.getReviews(product)
+      .then(reviews => {
+        /* eslint-disable object-curly-newline */
+        const body = {
+          product_id: product,
+          ratings: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
+          recommended: { 0: 0, 1: 0 },
+          characteristics: {},
+        };
+        reviews.forEach(review => {
+          body.ratings[review.rating] += 1;
+          body.recommended[+review.recommend] += 1;
+        });
+        ProductChars.getProductChars(product)
+          .then(productChars => {
+            Promise.all(productChars.map(productChar => {
+              const { id, name } = productChar;
+              const { characteristics } = body;
+              characteristics[name] = { id, value: 0 };
+
+              return Promise.resolve(Chars.getChars(id)
+                .then(chars => {
+                  const average = +parseFloat(chars.reduce((total, char) => char.value + total, 0)
+                    / chars.length).toFixed(2);
+                  Object.keys(characteristics).forEach(char => {
+                    if (characteristics[char].id === id) {
+                      characteristics[char].value = average;
+                    }
+                  });
+                }));
+            }))
+              .then(() => response.status(200).json(body));
           });
       })
       .catch(error => response.status(500).send(error));
