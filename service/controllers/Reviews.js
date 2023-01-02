@@ -67,6 +67,7 @@ module.exports = {
         const { characteristics } = body;
         characteristics[name] = { id, value: 0 };
 
+        /** Dear God, what have I done? */
         return Promise.resolve((async () => {
           const chars = await Chars.getChars(id);
           const average = +parseFloat(chars.reduce((total, char) => char.value + total, 0)
