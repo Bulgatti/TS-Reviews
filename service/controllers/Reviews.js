@@ -28,7 +28,7 @@ module.exports = {
           return Promise.resolve(Photos.getPhotos(review.review_id)
             .then(photos => {
               photos.forEach(photo => {
-                delete photo.id;
+                delete photo.review_id;
                 delete photo._id;
               });
               review.photos = photos;
