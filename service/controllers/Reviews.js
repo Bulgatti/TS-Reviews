@@ -54,7 +54,7 @@ module.exports = {
       const body = {
         product_id: product,
         ratings: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
-        recommended: { 0: 1, 1: 0 },
+        recommended: { 0: 0, 1: 0 },
         characteristics: {},
       };
       reviews.forEach(review => {
