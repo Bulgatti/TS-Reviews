@@ -1,7 +1,7 @@
 const { Chars } = require('../db');
 
 module.exports = {
-  getChars: char => {
+  getChars: async char => {
     try {
       return Promise.resolve(Chars.find({ characteristic_id: char }).lean());
     } catch (error) {

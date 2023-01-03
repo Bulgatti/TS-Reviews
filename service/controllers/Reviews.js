@@ -62,7 +62,7 @@ module.exports = {
         body.recommended[+review.recommend] += 1;
       });
       const productChars = await ProductChars.getProductChars(product);
-      await Promise.all(productChars.map(productChar => {
+      await Promise.all(productChars.map(async productChar => {
         const { id, name } = productChar;
         const { characteristics } = body;
         characteristics[name] = { id, value: 0 };
