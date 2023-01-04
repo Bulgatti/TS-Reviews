@@ -20,6 +20,7 @@ module.exports = {
           review.response = review.response === 'null' ? null : review.response;
           review.reviewer_name = review.name;
           delete review.id;
+          delete review.product_id;
           delete review.reported;
           delete review.name;
           delete review.email;
